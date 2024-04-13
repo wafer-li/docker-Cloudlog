@@ -17,7 +17,7 @@ RUN sed -i "s/php{{phpver}}/php$PHPVER/" /etc/nginx/sites-enabled/default
 # Copy PHP config
 COPY docker/php.ini /etc/php/$PHPVER/fpm/conf.d/cloudlog.ini
 
-ADD https://github.com/magicbug/Cloudlog/archive/master.zip /usr/src/master.zip
+ADD https://github.com/wavelog/wavelog/archive/master.zip /usr/src/master.zip
 
 # Build site
 COPY docker/build.sh /build.sh
