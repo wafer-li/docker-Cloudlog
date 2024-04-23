@@ -3,10 +3,13 @@ FROM ubuntu:22.04
 ENV PHPVER 8.1
 
 # Update and install ubuntu packages
-RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y dist-upgrade && \
-    DEBIAN_FRONTEND=noninteractive apt-get -y install software-properties-common locales
+RUN apt update
+RUN DEBIAN_FRONTEND=noninteractive apt dist-upgrade --yes
+RUN DEBIAN_FRONTEND=noninteractive apt install --yes software-properties-common locales
+RUN DEBIAN_FRONTEND=noninteractive apt install --yes supervisor cron nginx mariadb-client wget git unzip curl
+RUN DEBIAN_FRONTEND=noninteractive apt install --yes php$PHPVER php$PHPVER-cli php$PHPVER-fpm php$PHPVER-mbstring php$PHPVER-xml php$PHPVER-curl php$PHPVER-gd php$PHPVER-mysql php-redis php$PHPVER-readline php$PHPVER-zip
 
-RUN DEBIAN_FRONTEND=noninteractive apt-get -y install supervisor cron nginx php$PHPVER php$PHPVER-cli php$PHPVER-fpm php$PHPVER-mbstring php$PHPVER-xml php$PHPVER-curl php$PHPVER-gd php$PHPVER-mysql php-redis php$PHPVER-readline mariadb-client wget git unzip curl
+
 
 # Prepare nginx
 RUN echo "\ndaemon off;" >> /etc/nginx/nginx.conf
