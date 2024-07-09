@@ -35,6 +35,7 @@ services:
     ports:
       - 8082:80
 
+  
   cron:
     build: .
     command: /start-cron.sh
@@ -42,16 +43,6 @@ services:
     networks:
       - default
       - internal_network
-    depends_on:
-      - mariadb
-    env_file:
-      - docker.app.env
-      - docker.db.env
-    volumes:
-      - ./storage/logs:/var/www/application/logs
-      - ./storage/backup:/var/www/backup
-      - ./storage/updates:/var/www/updates
-      - ./storage/uploads:/var/www/uploads
 
   mariadb:
     restart: unless-stopped

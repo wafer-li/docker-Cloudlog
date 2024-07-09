@@ -10,6 +10,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt install --yes supervisor cron nginx maria
 RUN DEBIAN_FRONTEND=noninteractive apt install --yes php$PHPVER php$PHPVER-cli php$PHPVER-fpm php$PHPVER-mbstring php$PHPVER-xml php$PHPVER-curl php$PHPVER-gd php$PHPVER-mysql php-redis php$PHPVER-readline php$PHPVER-zip
 
 
+RUN curl --version
+
 
 # Prepare nginx
 RUN echo "\ndaemon off;" >> /etc/nginx/nginx.conf
@@ -39,6 +41,8 @@ RUN mkdir /run/php
 COPY docker/cron-cloudlog /etc/cron.d/cloudlog
 # Make sure permissions are correct, else it doesn't run.
 RUN chmod 644 /etc/cron.d/cloudlog
+RUN crontab /etc/cron.d/cloudlog
+
 
 # Add start script
 COPY docker/start*.sh /
