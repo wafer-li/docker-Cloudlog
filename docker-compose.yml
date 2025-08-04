@@ -1,7 +1,6 @@
 services:
   wavelog-main:
     build: .
-    command: /start-app.sh
     container_name: wavelog-main
     restart: unless-stopped
     networks:
