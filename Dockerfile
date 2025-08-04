@@ -1,13 +1,11 @@
-FROM ubuntu:22.04
+FROM alpine:3.22.1
 
-ENV PHPVER 8.1
+ENV PHPVER 8.2
+ENV PHPVER_ALPINE 82
 
-# Update and install ubuntu packages
-RUN apt update
-RUN DEBIAN_FRONTEND=noninteractive apt dist-upgrade --yes
-RUN DEBIAN_FRONTEND=noninteractive apt install --yes software-properties-common
-RUN DEBIAN_FRONTEND=noninteractive apt install --yes supervisor cron nginx mariadb-client wget git unzip curl
-RUN DEBIAN_FRONTEND=noninteractive apt install --yes php$PHPVER php$PHPVER-cli php$PHPVER-fpm php$PHPVER-mbstring php$PHPVER-xml php$PHPVER-curl php$PHPVER-gd php$PHPVER-mysql php-redis php$PHPVER-readline php$PHPVER-zip php$PHPVER-gd
+RUN apk update
+RUN DEBIAN_FRONTEND=noninteractive apk add supervisor cron nginx mariadb-client wget git unzip curl
+RUN DEBIAN_FRONTEND=noninteractive apk add php$PHPVER_ALPINE php$PHPVER_ALPINE-cli php$PHPVER_ALPINE-fpm php$PHPVER_ALPINE-mbstring php$PHPVER_ALPINE-xml php$PHPVER_ALPINE-curl php$PHPVER_ALPINE-gd php$PHPVER_ALPINE-mysql php-redis php$PHPVER_ALPINE-readline php$PHPVER_ALPINE-zip php$PHPVER_ALPINE-gd
 
 # Prepare nginx
 RUN echo "\ndaemon off;" >> /etc/nginx/nginx.conf
