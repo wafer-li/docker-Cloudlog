@@ -66,9 +66,9 @@ DB_HOST=${DB_HOST:-$(egrep -oh "'hostname' => '([^\']*)+'," ${DBCONFIGFILE}|tail
 DB_USERNAME=${DB_USERNAME:-$(egrep -oh "'username' => '([^\']*)+'," ${DBCONFIGFILE}|tail -1 | sed -r "s/'username' => '([^\']*)+',/\1/")}
 DB_PASSWORD=${DB_PASSWORD:-$(egrep -oh "'password' => '([^\']*)+'," ${DBCONFIGFILE}|tail -1 | sed -r "s/'password' => '([^\']*)+',/\1/")}
 DB_DATABASE=${DB_DATABASE:-$(egrep -oh "'database' => '([^\']*)+'," ${DBCONFIGFILE}|tail -1 | sed -r "s/'database' => '([^\']*)+',/\1/")}
-echo "Wating for mysql to come up"
+echo "Wating for mariadb to come up"
 # while ! mysql -h ${DB_HOST} -u ${DB_USERNAME} -p${DB_PASSWORD} -e ";" ${DB_DATABASE} > /dev/null 2>&1 ; do
-while ! mysql -h ${DB_HOST} -u ${DB_USERNAME} -p${DB_PASSWORD} -e ";" ${DB_DATABASE} ; do
+while ! mariadb -h ${DB_HOST} -u ${DB_USERNAME} -p${DB_PASSWORD} -e ";" ${DB_DATABASE} ; do
     echo -n "."
     sleep 1
 done
