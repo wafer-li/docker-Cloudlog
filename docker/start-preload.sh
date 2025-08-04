@@ -47,10 +47,10 @@ if [ ! -f ${DBCONFIGFILE} ]; then
         cp ${SAMPLE_DBCONFIGFILE} ${DBCONFIGFILE}
 
         # Update config for custom mysql
-        sed -ri "s/'hostname' => '([^\']*)+',/'hostname' => '${MYSQL_HOSTNAME:-mariadb}',/g" ${DBCONFIGFILE}
-        sed -ri "s/'username' => '([^\']*)+',/'username' => '${MYSQL_USER}',/g" ${DBCONFIGFILE}
-        sed -ri "s/'password' => '([^\']*)+',/'password' => '${MYSQL_PASSWORD//\//\\/}',/g" ${DBCONFIGFILE}
-        sed -ri "s/'database' => '([^\']*)+',/'database' => '${MYSQL_DATABASE}',/g" ${DBCONFIGFILE}
+        sed -ri "s/'hostname' => '([^\']*)+',/'hostname' => '${MARIADB_HOSTNAME:-mariadb}',/g" ${DBCONFIGFILE}
+        sed -ri "s/'username' => '([^\']*)+',/'username' => '${MARIADB_USER}',/g" ${DBCONFIGFILE}
+        sed -ri "s/'password' => '([^\']*)+',/'password' => '${MARIADB_PASSWORD//\//\\/}',/g" ${DBCONFIGFILE}
+        sed -ri "s/'database' => '([^\']*)+',/'database' => '${MARIADB_DATABASE}',/g" ${DBCONFIGFILE}
         sed -ri "s/utf8mb4_0900_ai_ci/utf8mb4_general_ci/g" ${DBCONFIGFILE}
         echo "DB Config file has been created."
         chown www-data: ${DBCONFIGFILE}
@@ -67,7 +67,8 @@ DB_USERNAME=${DB_USERNAME:-$(egrep -oh "'username' => '([^\']*)+'," ${DBCONFIGFI
 DB_PASSWORD=${DB_PASSWORD:-$(egrep -oh "'password' => '([^\']*)+'," ${DBCONFIGFILE}|tail -1 | sed -r "s/'password' => '([^\']*)+',/\1/")}
 DB_DATABASE=${DB_DATABASE:-$(egrep -oh "'database' => '([^\']*)+'," ${DBCONFIGFILE}|tail -1 | sed -r "s/'database' => '([^\']*)+',/\1/")}
 echo "Wating for mysql to come up"
-while ! mysql -h ${DB_HOST} -u ${DB_USERNAME} -p${DB_PASSWORD} -e ";" ${DB_DATABASE} > /dev/null 2>&1 ; do
+# while ! mysql -h ${DB_HOST} -u ${DB_USERNAME} -p${DB_PASSWORD} -e ";" ${DB_DATABASE} > /dev/null 2>&1 ; do
+while ! mysql -h ${DB_HOST} -u ${DB_USERNAME} -p${DB_PASSWORD} -e ";" ${DB_DATABASE} ; do
     echo -n "."
     sleep 1
 done
