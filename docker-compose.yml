@@ -1,6 +1,6 @@
 services:
   wavelog-main:
-    image: ghcr.io/wavelog/wavelog:latest
+    build: .
     command: /start-app.sh
     container_name: wavelog-main
     restart: unless-stopped
