@@ -1,1 +1,0 @@
-* * * * * curl --silent https://hamlog.wafer.li/index.php/cron/run &>/dev/null
