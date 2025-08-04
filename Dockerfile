@@ -4,7 +4,7 @@ ENV PHPVER 8.2
 ENV PHPVER_ALPINE 82
 
 RUN apk update
-RUN apk add supervisor cron nginx mariadb-client wget git unzip curl
+RUN apk add supervisor nginx mariadb-client wget git unzip curl
 RUN apk add php$PHPVER_ALPINE php$PHPVER_ALPINE-cli php$PHPVER_ALPINE-fpm php$PHPVER_ALPINE-mbstring php$PHPVER_ALPINE-xml php$PHPVER_ALPINE-curl php$PHPVER_ALPINE-gd php$PHPVER_ALPINE-mysql php-redis php$PHPVER_ALPINE-readline php$PHPVER_ALPINE-zip php$PHPVER_ALPINE-gd
 
 # Prepare nginx
@@ -32,6 +32,7 @@ COPY docker/supervisor/*.conf /etc/supervisor/conf.d/
 RUN mkdir /run/php
 
 # Copy crontab config
+RUN crond -f
 COPY docker/cron-cloudlog /etc/cron.d/cloudlog
 # Make sure permissions are correct, else it doesn't run.
 RUN chmod 644 /etc/cron.d/cloudlog
