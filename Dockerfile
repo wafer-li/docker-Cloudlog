@@ -4,8 +4,8 @@ ENV PHPVER 8.2
 ENV PHPVER_ALPINE 82
 
 RUN apk update
-RUN DEBIAN_FRONTEND=noninteractive apk add supervisor cron nginx mariadb-client wget git unzip curl
-RUN DEBIAN_FRONTEND=noninteractive apk add php$PHPVER_ALPINE php$PHPVER_ALPINE-cli php$PHPVER_ALPINE-fpm php$PHPVER_ALPINE-mbstring php$PHPVER_ALPINE-xml php$PHPVER_ALPINE-curl php$PHPVER_ALPINE-gd php$PHPVER_ALPINE-mysql php-redis php$PHPVER_ALPINE-readline php$PHPVER_ALPINE-zip php$PHPVER_ALPINE-gd
+RUN apk add supervisor cron nginx mariadb-client wget git unzip curl
+RUN apk add php$PHPVER_ALPINE php$PHPVER_ALPINE-cli php$PHPVER_ALPINE-fpm php$PHPVER_ALPINE-mbstring php$PHPVER_ALPINE-xml php$PHPVER_ALPINE-curl php$PHPVER_ALPINE-gd php$PHPVER_ALPINE-mysql php-redis php$PHPVER_ALPINE-readline php$PHPVER_ALPINE-zip php$PHPVER_ALPINE-gd
 
 # Prepare nginx
 RUN echo "\ndaemon off;" >> /etc/nginx/nginx.conf
