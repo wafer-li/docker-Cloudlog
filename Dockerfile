@@ -5,7 +5,7 @@ ENV PHPVER_ALPINE 82
 
 RUN apk update
 RUN apk add supervisor nginx mariadb-client wget git unzip curl
-RUN apk add php$PHPVER_ALPINE php$PHPVER_ALPINE-cli php$PHPVER_ALPINE-fpm php$PHPVER_ALPINE-mbstring php$PHPVER_ALPINE-xml php$PHPVER_ALPINE-curl php$PHPVER_ALPINE-gd php$PHPVER_ALPINE-mysql php-redis php$PHPVER_ALPINE-readline php$PHPVER_ALPINE-zip php$PHPVER_ALPINE-gd
+RUN apk add php$PHPVER_ALPINE php$PHPVER_ALPINE-cli php$PHPVER_ALPINE-fpm php$PHPVER_ALPINE-mbstring php$PHPVER_ALPINE-xml php$PHPVER_ALPINE-curl php$PHPVER_ALPINE-gd php$PHPVER_ALPINE-mysqli php-redis php$PHPVER_ALPINE-zip php$PHPVER_ALPINE-gd
 
 # Prepare nginx
 RUN echo "\ndaemon off;" >> /etc/nginx/nginx.conf
