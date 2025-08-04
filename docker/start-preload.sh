@@ -1,17 +1,8 @@
 #!/bin/bash
 
-# Directory checks (check if mounted volumes have their base data)
-if [ -z "$(ls -A /var/www/html/backup)" ]; then
-  echo "Looks like backupdir is empty, copying original data from source"
-  cp -a /usr/src/Cloudlog-master/backup/* /var/www/html/backup/
-fi
-if [ -z "$(ls -A /var/www/html/updates)" ]; then
-  echo "Looks like updatesdir is empty, copying original data from source"
-  cp -a /usr/src/Cloudlog-master/updates/* /var/www/html/updates/
-fi
 echo "Making sure volumed directories have right perms"
-chown -R www-data: /var/www/html/application/logs /var/www/html/backup /var/www/html/updates /var/www/html/uploads
-chmod 775 /var/www/html/application/logs /var/www/html/backup /var/www/html/updates /var/www/html/uploads
+chown -R www-data: /var/www/html/application/logs /var/www/html/userdata /var/www/html/uploads
+chmod 775 /var/www/html/application/logs /var/www/html/uploads
 
 # Config file checks and creation
 CONFIGFILE=/var/www/html/application/config/config.php

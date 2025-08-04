@@ -1,52 +1,28 @@
 services:
-  app:
-    build: .
+  wavelog-main:
+    image: ghcr.io/wavelog/wavelog:latest
     command: /start-app.sh
+    container_name: wavelog-main
     restart: unless-stopped
     networks:
       - default
-      - internal_network
     depends_on:
-      - mariadb
+      - wavelog-db
     env_file:
       - docker.app.env
       - docker.db.env
+    environment: 
+      CI_ENV: docker
     volumes:
-      - ./storage/logs:/var/www/html/application/logs
-      - ./storage/backup:/var/www/html/backup
-      - ./storage/updates:/var/www/html/updates
+      - ./storage/config:/var/www/html/application/config/docker
       - ./storage/uploads:/var/www/html/uploads
-
-  web:
-    build: .
-    command: /start-web.sh
-    restart: unless-stopped
-    networks:
-      - default
-    depends_on:
-      - app
-    env_file:
-      - docker.app.env
-    volumes:
-      - ./storage/logs:/var/www/html/application/logs
-      - ./storage/backup:/var/www/html/backup
-      - ./storage/updates:/var/www/html/updates
-      - ./storage/uploads:/var/www/html/uploads
+      - ./storage/userdata:/var/www/html/userdata
     ports:
-      - 8082:80
-
+      - 8086:80
   
-  cron:
-    build: .
-    command: /start-cron.sh
+  wavelog-db:
     restart: unless-stopped
-    networks:
-      - default
-      - internal_network
-
-  mariadb:
-    restart: unless-stopped
-    image: mariadb:10.10
+    image: mariadb:11.3
     networks:
       - internal_network
     env_file: docker.db.env
