@@ -1,23 +1,23 @@
 #!/bin/bash
 
 # Directory checks (check if mounted volumes have their base data)
-if [ -z "$(ls -A /var/www/backup)" ]; then
+if [ -z "$(ls -A /var/www/html/backup)" ]; then
   echo "Looks like backupdir is empty, copying original data from source"
-  cp -a /usr/src/Cloudlog-master/backup/* /var/www/backup/
+  cp -a /usr/src/Cloudlog-master/backup/* /var/www/html/backup/
 fi
-if [ -z "$(ls -A /var/www/updates)" ]; then
+if [ -z "$(ls -A /var/www/html/updates)" ]; then
   echo "Looks like updatesdir is empty, copying original data from source"
-  cp -a /usr/src/Cloudlog-master/updates/* /var/www/updates/
+  cp -a /usr/src/Cloudlog-master/updates/* /var/www/html/updates/
 fi
 echo "Making sure volumed directories have right perms"
-chown -R www-data: /var/www/application/logs /var/www/backup /var/www/updates /var/www/uploads
-chmod 775 /var/www/application/logs /var/www/backup /var/www/updates /var/www/uploads
+chown -R www-data: /var/www/html/application/logs /var/www/html/backup /var/www/html/updates /var/www/html/uploads
+chmod 775 /var/www/html/application/logs /var/www/html/backup /var/www/html/updates /var/www/html/uploads
 
 # Config file checks and creation
-CONFIGFILE=/var/www/application/config/config.php
-SAMPLE_CONFIGFILE=/var/www/application/config/config.sample.php
-DBCONFIGFILE=/var/www/application/config/database.php
-SAMPLE_DBCONFIGFILE=/var/www/application/config/database.sample.php
+CONFIGFILE=/var/www/html/application/config/config.php
+SAMPLE_CONFIGFILE=/var/www/html/application/config/config.sample.php
+DBCONFIGFILE=/var/www/html/application/config/database.php
+SAMPLE_DBCONFIGFILE=/var/www/html/application/config/database.sample.php
 if [ ! -f ${CONFIGFILE} ]; then
     echo "No config file, creating one based on template"
     if [ -f ${SAMPLE_CONFIGFILE} ]; then

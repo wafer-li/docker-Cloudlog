@@ -5,8 +5,8 @@ set -x -e
 cd /usr/src
 unzip master.zip
 
-rm -rf /var/www/*
-cp -a /usr/src/wavelog-*/* /var/www/
+rm -rf /var/www/html/*
+cp -a /usr/src/wavelog-*/* /var/www/html/
 chown -R www-data: /var/www
 
 echo "Done"

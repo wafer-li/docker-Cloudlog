@@ -26,7 +26,7 @@ RUN chmod +x /build.sh
 RUN /build.sh
 
 # Disable development environment - needed for CloudLog 2
-RUN sed -i s/define\(\'ENVIRONMENT\',\ \'development\'\)\;/define\(\'ENVIRONMENT\',\ \'production\'\)\;/ /var/www/index.php
+RUN sed -i s/define\(\'ENVIRONMENT\',\ \'development\'\)\;/define\(\'ENVIRONMENT\',\ \'production\'\)\;/ /var/www/html/index.php
 
 # Copy supervisor configs
 COPY docker/supervisor/*.conf /etc/supervisor/conf.d/
