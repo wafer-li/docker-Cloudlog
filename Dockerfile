@@ -36,6 +36,7 @@ COPY docker/cron-cloudlog /etc/cron.d/cloudlog
 # Make sure permissions are correct, else it doesn't run.
 RUN chmod 644 /etc/cron.d/cloudlog
 RUN crontab /etc/cron.d/cloudlog
+RUN /usr/sbin/cron -f
 
 
 # Add start script

@@ -35,15 +35,6 @@ services:
     ports:
       - 8082:80
 
-  
-  cron:
-    build: .
-    command: /start-cron.sh
-    restart: unless-stopped
-    networks:
-      - default
-      - internal_network
-
   mariadb:
     restart: unless-stopped
     image: mariadb:11
